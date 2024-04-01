@@ -13,15 +13,19 @@
   "devDependencies": {
     "@types/cli-color": "^2.0.6",
     "@types/download": "^8.0.5",
+    "@types/ini": "^4.1.0",
     "@types/node": "^20.12.2",
-    "@types/progress": "^2.0.7"
+    "@types/progress": "^2.0.7",
+    "@types/yaml": "^1.9.7"
   },
   "dependencies": {
     "cli-color": "^2.0.4",
     "download": "^8.0.0",
+    "ini": "^4.1.2",
     "memfs": "^4.8.1",
     "progress": "^2.0.3",
     "systeminformation": "^5.22.6",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "yaml": "^2.4.1"
   }
 }

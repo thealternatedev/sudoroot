@@ -11,6 +11,8 @@ import * as ts from "typescript";
 import { SudoRuntimeExecutable } from "../script/SudoRuntimeExecutable";
 import { SudoRoot } from "../SudoRoot";
 import { ECHOCommand } from "./commands/echo";
+import { SudoLogger } from "../SudoLogger";
+import { SRUTILCommand } from "./commands/srutil";
 
 export interface ICommand {
 
@@ -26,12 +28,14 @@ export class PromptSystem {
     private defaultCommands: Record<string, ICommand> = {};
     private vfs: VirtualFileSystem;
     private interface: Readline.Interface;
-    private sudoroot: SudoRoot
+    private sudoroot: SudoRoot;
+    public logger: SudoLogger;
 
     constructor(sudoroot: SudoRoot, vfs: VirtualFileSystem) {
         this.sudoroot = sudoroot;
         this.vfs = vfs;
         this.interface = Readline.createInterface(process.stdin, process.stdout);
+        this.logger = new SudoLogger();
         this.registerDefaultCommands()
     }
 
@@ -43,6 +47,7 @@ export class PromptSystem {
             new MKDIRCommand(),
             new CATCommand(),
             new ECHOCommand(),
+            new SRUTILCommand(),
         )
 
     }

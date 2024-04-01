@@ -3,6 +3,7 @@ import * as ts from "typescript";
 import path from "path/posix";
 import ProgressBar from "progress";
 import download from "download";
+import ini from "ini";
 
 export class SudoUtilities {
 
@@ -93,12 +94,15 @@ export class SudoUtilities {
    }
 
    public static async loadNodeJSLibrary(name: string): Promise<any> {
+    const systemConfig = this.loadSystemConfiguration();
+    const sudoDisable = systemConfig.system.DisableSudoRequiring;
+    let disable = sudoDisable && typeof sudoDisable === "string" && sudoDisable.toUpperCase() === "T";
+    if (disable) return null;
     const d: any = require(name);
     return d.default ?? d;
    }
-
-    constructor() {
-
-    }
-
+   public static loadSystemConfiguration(): any {
+        const content = this.IFS.readFileSync("/sudoroot/sys/sys.ini", { encoding: "utf-8" }).toString("utf-8");
+        return ini.parse(content);
+   }
 }

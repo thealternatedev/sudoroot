@@ -5,6 +5,8 @@ export enum TokenType {
     Argument,
     StringLiteral,
     Command,
+    Boolean,
+    Number,
 }
 export interface Token {
     type: TokenType,
@@ -20,6 +22,10 @@ export class SudoRuntimeExecutable {
     constructor(sudoroot: SudoRoot) {
         this.parser = new SudoRuntimeParser(sudoroot);
         this.sudoroot = sudoroot;
+    }
+
+    isNumber(value: string) {
+        return !isNaN(parseInt(value));
     }
 
     tokenize(code: string): Token[] {
@@ -47,12 +53,18 @@ export class SudoRuntimeExecutable {
                         // Start of a string literal
                         inString = true;
                     }
+                } else if (this.isNumber(char)) {
+                    tokens.push({ type: TokenType.Number, value: parseInt(char), newline: isNewline });
                 } else if ((char === '') && !inString) {
                     if (line.startsWith(currentWord)) {
                         isNewline = true;
                     }
                     if (currentWord !== '') {
-                        tokens.push({ type: TokenType.Argument, value: currentWord, newline: isNewline });
+                        if (currentWord === "true" || currentWord === "false") {
+                            tokens.push({ type: TokenType.Boolean, value: currentWord === "true" ? true : false, newline: false });
+                        } else {
+                            tokens.push({ type: TokenType.Argument, value: currentWord, newline: isNewline });
+                        }
                         currentWord = '';
                     }
                 } else {
@@ -65,9 +77,13 @@ export class SudoRuntimeExecutable {
     
         // Add the last word if it exists
         if (currentWord !== '') {
-            const before = tokens[tokens.length - 1];
-            tokens.push({ type: inString ? TokenType.StringLiteral : TokenType.Argument, value: currentWord, newline: false });
+            if (currentWord === "true" || currentWord === "false") {
+                tokens.push({ type: TokenType.Boolean, value: currentWord === "true" ? true : false, newline: false });
+            } else {
+                tokens.push({ type: inString ? TokenType.StringLiteral : TokenType.Argument, value: currentWord, newline: false });
+            }
         }
+
     
         return tokens;
     }
