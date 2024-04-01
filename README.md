@@ -1,4 +1,4 @@
-<img src="images/sudoroot.png"/>
+<p align="center"><img src="images/sudoroot.png"/></p>
 <h1></h1>
 <h1 align="center"> SudoRoot </h1>
 
