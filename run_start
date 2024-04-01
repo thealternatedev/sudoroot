@@ -1,0 +1,4 @@
+#!/usr/env sh
+
+npm start
+exit

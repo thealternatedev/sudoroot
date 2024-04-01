@@ -1,0 +1,9 @@
+// @ts-nocheck
+IncludeSudoUtilities();
+const SudoSystemInternal = SudoUtilities.loadCustomLibFile("sudokernel", "system/SystemInternal.ts");
+
+export default {
+
+    system_internal: new SudoSystemInternal()
+
+}

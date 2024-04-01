@@ -1,0 +1,3 @@
+ls /
+ls /sudoroot
+echo Good bye!
