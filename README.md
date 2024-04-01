@@ -4,6 +4,8 @@
 
 a Operating System like feeling in javascript using typescript and ts-node.
 
+**Disclaimer**: The VFS stores files in memory and not on the computer, if you turn off or close out of SudoRoot then your data will be lost and is not saved. You can follow the wiki on how to make this data saved constantly when you open SudoRoot.
+
 ## How does this work?
 We use a virtual file system by using **memfs** which makes it so easy for me to work around with memory filesystem instead with regular filesystem.
 
