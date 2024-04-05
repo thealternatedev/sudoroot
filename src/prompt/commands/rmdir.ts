@@ -1,12 +1,12 @@
 import { VirtualFileSystem } from "../../vfs/VirtualFileSystem";
 import { ICommand, PromptSystem } from "../PromptSystem";
 
-export class MKDIRCommand implements ICommand {
+export class RMDIRCommand implements ICommand {
     arguments(): number {
         return 1;
     }
     name(): string {
-        return "mkdir";
+        return "rmdir";
     }
     execute(ps: PromptSystem, ...args: string[]): void {
         const vfs: VirtualFileSystem = ps.getVirtualFileSystem();

@@ -13,6 +13,7 @@ import { SudoRoot } from "../SudoRoot";
 import { ECHOCommand } from "./commands/echo";
 import { SudoLogger } from "../SudoLogger";
 import { SRUTILCommand } from "./commands/srutil";
+import { RMDIRCommand } from "./commands/rmdir";
 
 export interface ICommand {
 
@@ -48,6 +49,7 @@ export class PromptSystem {
             new CATCommand(),
             new ECHOCommand(),
             new SRUTILCommand(),
+            new RMDIRCommand(),
         )
 
     }
