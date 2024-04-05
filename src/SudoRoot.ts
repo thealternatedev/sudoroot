@@ -1,4 +1,3 @@
-import memfs from "memfs";
 import { VirtualFileSystem } from "./vfs/VirtualFileSystem";
 import { PromptSystem } from "./prompt/PromptSystem";
 import { Globals } from "./Globals";

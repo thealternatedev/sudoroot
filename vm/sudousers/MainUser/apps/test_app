@@ -1,0 +1,14 @@
+//@ts-nocheck
+export default {
+
+    name(): string {
+        return "memory_allocate"
+    },
+    arguments(): number {
+        return 0
+    },
+    execute(ps: any, ...args: string[]): void {
+
+    }
+
+}
