@@ -49,35 +49,35 @@ export class VirtualFileSystem {
         return $P.resolve(i);
     }
     
-    createDefaultDirectories() {
+    async createDefaultDirectories() {
         
         for (let dir of this.directories) {
             if (dir.includes("{MainUser}")) dir = dir.replaceAll("{MainUser}", "/sudousers/MainUser/");
-            this.getFS().mkdirSync(dir, {
+            await this.getFS().mkdirSync(dir, {
                 recursive: true
             });
         }
 
-        this.copyfromto();
+        await this.copyfromto();
 
     }
 
-    copyfromto() {
+    async copyfromto() {
 
-        const func = (dir: string) => {
+        const func = async (dir: string) => {
             let nvm = dir.replaceAll("vm", "");
-            fs.readdirSync(dir).forEach((v) => {
+            fs.readdirSync(dir).forEach( async (v) => {
                 if (fs.statSync(path.join(dir, v)).isFile()) {
                     const data = fs.readFileSync(path.join(dir, v));
-                    this.getFS().mkdirSync($P.join(nvm), { recursive: true })
-                    this.getFS().writeFileSync($P.join(nvm, v), data);
+                    await this.getFS().mkdirSync($P.join(nvm), { recursive: true })
+                    await this.getFS().writeFileSync($P.join(nvm, v), data);
                 } else {
                     func(path.join(dir, v));
                 }
             });
         }
 
-        func("vm");
+        await func("vm");
 
     }
 }

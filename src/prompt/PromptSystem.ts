@@ -14,6 +14,7 @@ import { ECHOCommand } from "./commands/echo";
 import { SudoLogger } from "../SudoLogger";
 import { SRUTILCommand } from "./commands/srutil";
 import { RMDIRCommand } from "./commands/rmdir";
+import { REFENVCommand } from "./commands/refreshEnv";
 
 export interface ICommand {
 
@@ -50,6 +51,7 @@ export class PromptSystem {
             new ECHOCommand(),
             new SRUTILCommand(),
             new RMDIRCommand(),
+            new REFENVCommand(),
         )
 
     }
@@ -92,6 +94,7 @@ export class PromptSystem {
 
         this.getInterface().question(`${Color.blueBright(`$`)} ${Color.greenBright(this.vfs.cwd())} ${Color.blueBright(`>`)} `, async (res) => {
             if (!res.length) return this.call();
+            res = res.replaceAll("~", "/sudousers/MainUser/")
             const [ cmd, ...args ] = res.split(" ");
             if (this.defaultCommands[cmd] != null) {
                 const command = this.defaultCommands[cmd];

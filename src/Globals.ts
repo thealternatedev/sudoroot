@@ -1,4 +1,5 @@
 import { SudoUtilities } from "./SudoUtilities/Sudo";
+import { Environment } from "./env/Environment";
 import { MAX_ASSIGNED_MEM, MAX_MEM, alloc, clearMemory, getMemory, globalMemory, malloc, mallocI } from "./memory/Memory";
 
 function getGlobalThis() {
@@ -21,6 +22,7 @@ export class Globals {
         getGlobalThis().MAX_ASSIGNED_MEM = MAX_ASSIGNED_MEM;
         getGlobalThis().MAX_MEM = MAX_MEM;
         getGlobalThis().alloc = alloc;
+        getGlobalThis().env = Environment.getEnvironment()
 
 
     }

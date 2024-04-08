@@ -1,6 +1,7 @@
 import { VirtualFileSystem } from "./vfs/VirtualFileSystem";
 import { PromptSystem } from "./prompt/PromptSystem";
 import { Globals } from "./Globals";
+import { Environment } from "./env/Environment";
 
 export class SudoRoot {
 
@@ -24,9 +25,10 @@ export class SudoRoot {
         return this.vfs;
     }
 
-    boot() {
+    async boot() {
+        await this.vfs.createDefaultDirectories();
         Globals.registerGlobals();
-        this.vfs.createDefaultDirectories();
+        Environment.getEnvironment().refreshEnvironment()
         this.promptSystem.call();
 
     }
